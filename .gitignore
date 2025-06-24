@@ -3,4 +3,4 @@ build
 npm-debug.log
 .env
 .DS_Store
-last_processed_guid.json
+last_processed_guid.jsonfirebase-debug.log
