@@ -73,7 +73,9 @@ module.exports = async function runBot(db) {
   if (newItems.length) {
     const last = newItems[newItems.length - 1];
     const lastId = last.guid || last.id || last.link;
-    await lastRef.set({ guid: lastId });
+    const lastUpdate = last.isoDate ? Date.parse(last.isoDate) : Date.now();
+    console.log(`Updating last GUID to: ${lastId} (${lastUpdate})`);
+    await lastRef.set({ guid: lastId, updated: lastUpdate });
   }
 
   // --- 7. Cleanup Discord client if used ---
