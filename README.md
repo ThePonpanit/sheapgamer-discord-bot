@@ -1,6 +1,6 @@
 # 🤖 Discord RSS Feed Bot
 
-[![Node.js](https://img.shields.io/badge/Node.js-v18%2B-green)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-v22%2B-green)](https://nodejs.org/)
 [![Discord.js](https://img.shields.io/badge/Discord.js-v14-blue)](https://discord.js.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -23,7 +23,7 @@ An automated Discord bot that fetches the latest articles from RSS feeds and pos
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) v18 or higher
+- [Node.js](https://nodejs.org/) v22 or higher
 - A Discord account with server management permissions
 - Basic knowledge of environment variables
 
