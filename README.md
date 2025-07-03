@@ -1,84 +1,231 @@
-# **SheapGamer RSS Feed Discord Bot**
+# 🤖 Discord RSS Feed Bot
 
-This Discord bot automatically fetches the latest articles from a specified RSS feed and posts them to a designated Discord channel
+[![Node.js](https://img.shields.io/badge/Node.js-v18%2B-green)](https://nodejs.org/)
+[![Discord.js](https://img.shields.io/badge/Discord.js-v14-blue)](https://discord.js.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-This purpose to read RSS feed from SheapGamer channel but you can configure it
-to read from any RSS feed your desired.
+An automated Discord bot that fetches the latest articles from RSS feeds and posts them to designated Discord channels as rich embeds. Originally designed for SheapGamer content but fully configurable for any RSS feed.
 
-## **Features** :rocket:
+## ✨ Features
 
-* **Automated RSS Fetching:** Periodically checks a configurable RSS feed URL (default: https://rss.app/feeds/COiTZRnT26oDqrJf.xml) which is SheapGamer RSS
-* **Persistent Tracking:** Uses a local last\_processed\_guid.json file to store the GUID (Globally Unique Identifier) of the last successfully posted RSS item, preventing duplicate posts across bot restarts.  
-* **One-Day Filter:** Ignores any RSS posts that are older than 24 hours to prevent posting outdated content.  
-* **Chronological Posting:** New items are posted in ascending order by date, ensuring the oldest new content appears first.  
-* **Concise Discord Embeds:** Each new post is formatted as a Discord embed containing only:  
-  * The article's **Title** (clickable, linking to the original article).  
-  * The article's **Featured Image** (if available in the RSS feed).  
-  * A **Timestamp** (from the RSS item's publication date).  
+- 🔄 **Automated RSS Monitoring**: Periodically checks RSS feeds every 15 minutes
+- 💾 **Smart Duplicate Prevention**: Tracks processed items to avoid duplicate posts across restarts
+- ⏰ **Fresh Content Filter**: Only posts articles from the last 24 hours
+- 📅 **Chronological Ordering**: Posts new content in proper chronological order
+- 🎨 **Rich Discord Embeds**: Beautiful formatted messages with:
+  - Clickable article titles
+  - Featured images (when available)
+  - Publication timestamps
+- 🌐 **Dual Deployment Options**: Run locally or deploy to Firebase Cloud Functions
+- ⚙️ **Easy Configuration**: Simple environment variable setup
 
-## **Getting Started**
+## 🚀 Quick Start
 
-Follow these steps to set up and run your Discord bot.
+### Prerequisites
 
-### **Prerequisites** :wrench:
+- [Node.js](https://nodejs.org/) v18 or higher
+- A Discord account with server management permissions
+- Basic knowledge of environment variables
 
-* **Node.js (v18.x or higher recommended):** Download and install from [nodejs.org](https://nodejs.org/). This includes npm.  
-* A **Discord Account** and a **Discord Server** where you have permissions to manage channels and invite bots.
+## 📋 Setup Guide
 
-### **Discord Bot Setup** 🤖
+### 🤖 Discord Bot Setup
 
-1. **Create a New Application:**  
-   * Go to the [Discord Developer Portal](https://discord.com/developers/applications).  
-   * Click "New Application" and give your bot a name (e.g., SheapGamer RSS Bot).  
-2. **Add a Bot User:**  
-   * Navigate to the "Bot" tab on the left sidebar.  
-   * Click "Add Bot" and then "Yes, do it\!".  
-3. **Copy Bot Token:**  
-   * Under the "Token" section, click "Copy". **DO NOT LEAK YOUR TOKEN ANYWHERE\!** 
-   keep it in note or something
-4. **Configure Gateway Intents:**  
-   * Scroll down to "Privileged Gateway Intents".  
-   * For this bot's current functionality, you likely **don't need** to enable "PRESENCE INTENT" or "MESSAGE CONTENT INTENT". If you plan to add commands later, you might need to enable Message Content Intent.  
-5. **Invite Your Bot to Your Server:**  
-   * Go to the "OAuth2" tab, then "URL Generator".  
-   * Under "SCOPES", select bot.  
-   * Under "BOT PERMISSIONS", select at least this permission:  
-     * Send Messages  
-     * Embed Links (Crucial for the rich messages)  
-   * Copy the generated URL. Paste it into your browser, select the server you want the bot to join, and authorize it.  
-6. **Get Channel ID:**  
-   * In your Discord server, go to "User Settings" (bottom left, gear icon).  
-   * Navigate to "App Settings" \-\> "Advanced".  
-   * Enable "Developer Mode".  
-   * Right-click on the Discord channel where you want the bot to post updates, and select "Copy ID". This is your DISCORD\_CHANNEL\_ID.
+1. **Create a Discord Application**
 
-### **Project Setup** :computer:
+   - Visit the [Discord Developer Portal](https://discord.com/developers/applications)
+   - Click **"New Application"** and name your bot (e.g., "RSS Feed Bot")
 
-1. **Clone this project** 
+2. **Configure the Bot**
 
-2. **Install Dependencies:**  
-   `$ npm install discord.js rss-parser dotenv`
+   - Navigate to the **"Bot"** tab in the sidebar
+   - Click **"Add Bot"** → **"Yes, do it!"**
+   - Copy the bot token (⚠️ **Keep this secret!**)
 
-3. **Create .env File froom .env.example :**  
-   * clone .env.example to .env, then add this variable
-    ```
-     DISCORD_BOT_TOKEN="YOUR_BOT_TOKEN_HERE"  
-     DISCORD_CHANNEL_ID="YOUR_CHANNEL_ID_HERE"  
-     RSS_FEED_URL="https://rss.app/feeds/COiTZRnT26oDqrJf.xml"
-    ```
+3. **Set Gateway Intents**
 
-    * **Replace YOUR\_BOT\_TOKEN\_HERE** with the token you copied from Discord Developer Portal.  
-    * **Replace YOUR\_CHANNEL\_ID\_HERE** with the channel ID you copied from your Discord server.  
-    * You can optionally change RSS\_FEED\_URL here if you want to use a different feed.
+   - Under "Privileged Gateway Intents"
+   - For basic RSS functionality, no special intents are required
+   - Enable "Message Content Intent" only if adding command features later
 
-### **Running the Bot** :robot:
+4. **Generate Invite Link**
 
-Simply run to start bot
+   - Go to **"OAuth2"** → **"URL Generator"**
+   - **Scopes**: Select `bot`
+   - **Bot Permissions**: Select:
+     - ✅ Send Messages
+     - ✅ Embed Links
+     - ✅ Read Message History (optional)
+   - Copy the generated URL and invite the bot to your server
 
-`$ node index.js`
+5. **Get Channel ID**
+   - Enable **Developer Mode**: User Settings → Advanced → Developer Mode
+   - Right-click your target channel → **"Copy ID"**
 
-The bot should now log in to Discord. You will see console messages indicating that it's checking the RSS feed and either posting new items or reporting that no new eligible items were found.
+### 💻 Local Development Setup
 
-### **License**
+1. **Clone the Repository**
 
-This project is licensed under the MIT License \- see the LICENSE file (if you choose to create one) for details. (Typically, for small open-source projects, a LICENSE file is included in the root directory, containing the full text of the chosen license).
+   ```bash
+   git clone <repository-url>
+   cd sheapgamer-discord-bot
+   ```
+
+2. **Install Dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration**
+
+   - Copy `.env-example` to `.env`
+
+   ```bash
+   cp .env-example .env
+   ```
+
+   - Edit `.env` with your configuration:
+
+   ```env
+   DISCORD_BOT_TOKEN=your_bot_token_here
+   DISCORD_CHANNEL_ID=your_channel_id_here
+   RSS_FEED_URL=https://rss.app/feeds/COiTZRnT26oDqrJf.xml
+   ```
+
+4. **Run the Bot**
+   ```bash
+   npm start
+   # or
+   node index.js
+   ```
+
+### ☁️ Firebase Cloud Functions Deployment
+
+For 24/7 operation without maintaining a local server:
+
+1. **Install Firebase CLI**
+
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. **Login and Initialize**
+
+   ```bash
+   firebase login
+   firebase init functions
+   ```
+
+3. **Configure Environment Variables**
+
+   ```bash
+   firebase functions:config:set discord.bot_token="your_bot_token"
+   firebase functions:config:set discord.channel_id="your_channel_id"
+   firebase functions:config:set rss.feed_url="your_rss_url"
+   ```
+
+4. **Deploy**
+   ```bash
+   cd functions
+   npm install
+   firebase deploy --only functions
+   ```
+
+## 📁 Project Structure
+
+```
+sheapgamer-discord-bot/
+├── index.js                    # Main bot application
+├── package.json                # Project dependencies
+├── .env-example               # Environment template
+├── firebase.json              # Firebase configuration
+├── last_processed_guid.json   # Tracking file (auto-generated)
+└── functions/                 # Firebase Cloud Functions
+    ├── index.js               # Cloud function entry point
+    ├── discordBot.js          # Bot logic for cloud deployment
+    └── package.json           # Cloud function dependencies
+```
+
+## ⚙️ Configuration Options
+
+| Variable             | Description               | Default         | Required |
+| -------------------- | ------------------------- | --------------- | -------- |
+| `DISCORD_BOT_TOKEN`  | Your Discord bot token    | -               | ✅       |
+| `DISCORD_CHANNEL_ID` | Target Discord channel ID | -               | ✅       |
+| `RSS_FEED_URL`       | RSS feed URL to monitor   | SheapGamer feed | ❌       |
+
+## 🔧 Advanced Configuration
+
+### Custom RSS Feeds
+
+Replace the `RSS_FEED_URL` in your `.env` file with any valid RSS feed URL:
+
+```env
+RSS_FEED_URL=https://example.com/feed.xml
+```
+
+### Monitoring Interval
+
+The bot checks for new posts every 15 minutes. To modify this, edit the `RSS_CHECK_INTERVAL_MS` constant in `index.js`:
+
+```javascript
+const RSS_CHECK_INTERVAL_MS = 900000; // 15 minutes in milliseconds
+```
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+**Bot not responding:**
+
+- Verify bot token is correct
+- Ensure bot has proper permissions in the target channel
+- Check console for error messages
+
+**No posts appearing:**
+
+- Confirm channel ID is correct
+- Verify RSS feed URL is accessible
+- Check if feed has new content within 24 hours
+
+**Duplicate posts:**
+
+- The `last_processed_guid.json` file tracks processed items
+- Delete this file to reset tracking (will repost recent items)
+
+### Getting Help
+
+1. Check the console output for detailed error messages
+2. Verify all environment variables are set correctly
+3. Ensure the RSS feed is valid and accessible
+4. Test bot permissions by sending a manual message
+
+## 📜 Dependencies
+
+- **[discord.js](https://discord.js.org/)** v14+ - Discord API library
+- **[rss-parser](https://www.npmjs.com/package/rss-parser)** - RSS feed parsing
+- **[dotenv](https://www.npmjs.com/package/dotenv)** - Environment variable management
+- **[firebase-functions](https://firebase.google.com/docs/functions)** - Cloud deployment (optional)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -am 'Add feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Originally designed for [SheapGamer](https://rss.app/feeds/COiTZRnT26oDqrJf.xml) RSS feed
+- Built with Discord.js community resources
+- Inspired by the need for automated content sharing
+
+---
+
+**⭐ Found this helpful? Give it a star!**

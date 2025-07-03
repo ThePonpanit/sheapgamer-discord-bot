@@ -7,9 +7,11 @@ const {
 const Parser = require("rss-parser");
 require("dotenv").config();
 
+const moment = require("moment-timezone");
+
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 const CHANNEL_ID = process.env.DISCORD_CHANNEL_ID;
-const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL; // <— new!
+const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL; // Discord webhook URL
 const RSS_FEED_URL = process.env.RSS_FEED_URL;
 
 const parser = new Parser();
@@ -75,7 +77,10 @@ module.exports = async function runBot(db) {
     const lastId = last.guid || last.id || last.link;
     const lastUpdate = last.isoDate ? Date.parse(last.isoDate) : Date.now();
     console.log(`Updating last GUID to: ${lastId} (${lastUpdate})`);
-    await lastRef.set({ guid: lastId, updated: lastUpdate });
+    await lastRef.set({
+      guid: lastId,
+      updated: moment(last.isoDate).tz("Asia/Bangkok").format(),
+    });
   }
 
   // --- 7. Cleanup Discord client if used ---

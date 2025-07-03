@@ -1,7 +1,37 @@
 {
+  "name": "discord-rss-bot",
+  "version": "1.0.0",
+  "description": "An automated Discord bot that fetches RSS feeds and posts them as rich embeds",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "rss",
+    "feed",
+    "automation",
+    "nodejs"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^14.20.0",
     "dotenv": "^16.5.0",
     "rss-parser": "^3.13.0"
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/discord-rss-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/discord-rss-bot/issues"
+  },
+  "homepage": "https://github.com/yourusername/discord-rss-bot#readme"
 }
